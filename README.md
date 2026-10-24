@@ -1,14 +1,13 @@
-# Four-Channel Priority Alarm Selector
+
+# C03 - Four-Channel Priority Alarm Selector
 
 ## 1. Project Overview
 
 This project implements a four-channel priority alarm selector for the Introduction to Integrated Circuit Design course.
 
-The circuit is combinational and selects the highest alarm level among four input channels. If multiple channels have the same highest level, the channel with the smallest index is selected.
+The circuit is combinational and selects the highest alarm level among four input channels. If multiple channels have the same highest non-zero level, the channel with the smallest index is selected.
 
 ## 2. Alarm Encoding
-
-Each channel uses two bits to represent its alarm level.
 
 | Alarm Level | Encoding |
 |---|---|
@@ -21,8 +20,6 @@ Each channel uses two bits to represent its alarm level.
 
 ### Inputs
 
-The 8-bit input `ui_in` contains four 2-bit alarm channels:
-
 | Channel | Input Bits |
 |---|---|
 | Channel 0 | `ui_in[1:0]` |
@@ -32,8 +29,6 @@ The 8-bit input `ui_in` contains four 2-bit alarm channels:
 
 ### Outputs
 
-The 8-bit output `uo_out` is encoded as follows:
-
 | Output Bits | Description |
 |---|---|
 | `uo_out[1:0]` | Selected channel index |
@@ -41,35 +36,57 @@ The 8-bit output `uo_out` is encoded as follows:
 | `uo_out[4]` | Valid alarm indicator |
 | `uo_out[7:5]` | Reserved; always zero |
 
-When all four channels have no alarm, the valid indicator, selected channel, and selected level are all zero.
-
-The bidirectional GPIO output and output-enable signals are tied to zero.
+When all channels report `00`, the valid indicator, selected channel, and selected level are zero. Bidirectional GPIO outputs and output-enable signals are tied to zero.
 
 ## 4. Priority Rules
 
 1. Select the channel with the highest alarm level.
-2. If multiple channels share the highest level, select the channel with the smallest index.
-3. If all channels have level `00`, indicate that no alarm is active.
+2. Resolve ties by selecting the channel with the smallest index.
+3. If all channels report `00`, indicate that no alarm is active.
 
-The design does not use a clock, reset, registers, or memory for its selection logic.
+The selection logic does not require a clock, reset, registers, or memory.
 
 ## 5. Repository Structure
 
 ```text
 .
-├── SPEC.md
-├── README.md
+├── 01_REQUIREMENT/
+│   └── requirement.md
+├── 02_SPECIFICATION/
+│   └── specification.md
+├── 03_ARCHITECTURE/
+│   └── architecture.md
+├── 04_IMPLEMENTATION/
+│   └── implementation.md
+├── 05_VERIFICATION/
+│   ├── drc.log
+│   ├── drc.rpt
+│   ├── lvs.log
+│   ├── lvs.rpt
+│   └── manufacturability.rpt
+├── 06_GDSII/
+│   ├── c03_layout_klayout.png
+│   └── tt_um_c03_priority_alarm.gds
+├── 08_ORIGINAL_SOURCE/
+│   ├── README.md
+│   ├── SPEC.md
+│   ├── c03_core.v
+│   ├── tt_um_c03_priority_alarm.v
+│   ├── tb_c03_core.v
+│   └── tb_tt_um_c03_priority_alarm.v
 ├── src/
 │   ├── c03_core.v
 │   └── tt_um_c03_priority_alarm.v
-└── test/
-    ├── tb_c03_core.v
-    └── tb_tt_um_c03_priority_alarm.v
+├── test/
+│   ├── tb_c03_core.v
+│   └── tb_tt_um_c03_priority_alarm.v
+├── README.md
+└── SPEC.md
 ```
 
 ## 6. RTL Verification
 
-The project uses Icarus Verilog for RTL simulation.
+RTL simulation uses Icarus Verilog.
 
 ### Core testbench
 
@@ -92,20 +109,25 @@ iverilog -g2012 -Wall -s tb_tt_um_c03_priority_alarm \
 vvp /tmp/tb_c03_wrapper.vvp
 ```
 
-### Current verification results
+### Recorded results
 
 - Core testbench: PASS for all 256 input combinations.
 - Top-level wrapper testbench: PASS for all 256 input combinations.
 - GPIO output and output-enable checks: PASS.
-- Yosys hierarchy and structural check: completed with zero reported problems.
+- Yosys structural check: zero reported problems.
 
-These results describe RTL simulation and structural checks. They do not establish physical-design signoff or manufacturing readiness.
+## 7. Physical Design and Verification
 
-## 7. Physical Design Status
+The design was implemented using OpenLane with the SkyWater SKY130A platform.
 
-RTL-to-GDSII implementation and physical-design verification are separate stages of the project. Results such as synthesis, timing analysis, design-rule checking (DRC), and layout-versus-schematic (LVS) must be recorded after those stages have actually been run.
+Recorded results:
 
-No claim of completed physical-design signoff or tape-out is made here.
+- Magic DRC: zero reported violations.
+- LVS: clean; the compared circuits matched.
+- Antenna summary: zero pin violations and zero net violations.
+- GDSII layout and KLayout screenshot are included in `06_GDSII/`.
+
+**Limitation:** CVC/ERC did not complete successfully because of a resistance-model parameter error in the verification flow. Therefore, complete physical signoff and manufacturing readiness are not claimed.
 
 ## 8. Project Scope
 
