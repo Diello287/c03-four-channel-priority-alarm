@@ -1,0 +1,55 @@
+CVC: Log output to /openlane/designs/c03_priority_alarm/runs/c03_check2/reports/signoff/tt_um_c03_priority_alarm.rpt
+CVC: Error output to /openlane/designs/c03_priority_alarm/runs/c03_check2/reports/signoff/tt_um_c03_priority_alarm.rpt.error.gz
+CVC: Debug output to /openlane/designs/c03_priority_alarm/runs/c03_check2/reports/signoff/tt_um_c03_priority_alarm.rpt.debug.gz
+CVC: Circuit Validation Check  Version 1.1.4
+CVC: Start: Sat Oct 24 16:23:57 2026
+
+Using the following parameters for CVC (Circuit Validation Check) from /home/diello/.ciel/sky130A/libs.tech/openlane/cvc/cvcrc
+CVC_TOP = 'tt_um_c03_priority_alarm'
+CVC_NETLIST = '/openlane/designs/c03_priority_alarm/runs/c03_check2/tmp/signoff/tt_um_c03_priority_alarm.cdl'
+CVC_MODE = 'tt_um_c03_priority_alarm'
+CVC_MODEL_FILE = '/home/diello/.ciel/sky130A/libs.tech/openlane/cvc/models'
+CVC_POWER_FILE = '/openlane/designs/c03_priority_alarm/runs/c03_check2/tmp/signoff/tt_um_c03_priority_alarm.power'
+CVC_FUSE_FILE = ''
+CVC_REPORT_FILE = '/openlane/designs/c03_priority_alarm/runs/c03_check2/reports/signoff/tt_um_c03_priority_alarm.rpt'
+CVC_REPORT_TITLE = 'CVC $CVC_TOP'
+CVC_CIRCUIT_ERROR_LIMIT = '100'
+CVC_SEARCH_LIMIT = '100'
+CVC_LEAK_LIMIT = '0.0002'
+CVC_SOI = 'false'
+CVC_SCRC = 'false'
+CVC_VTH_GATES = 'false'
+CVC_MIN_VTH_GATES = 'false'
+CVC_IGNORE_VTH_FLOATING = 'false'
+CVC_IGNORE_NO_LEAK_FLOATING = 'false'
+CVC_LEAK_OVERVOLTAGE = 'true'
+CVC_LOGIC_DIODES = 'false'
+CVC_ANALOG_GATES = 'true'
+CVC_BACKUP_RESULTS = 'false'
+CVC_MOS_DIODE_ERROR_THRESHOLD = '0'
+CVC_SHORT_ERROR_THRESHOLD = '0'
+CVC_BIAS_ERROR_THRESHOLD = '0'
+CVC_FORWARD_ERROR_THRESHOLD = '0'
+CVC_FLOATING_ERROR_THRESHOLD = '0'
+CVC_GATE_ERROR_THRESHOLD = '0'
+CVC_LEAK?_ERROR_THRESHOLD = '0'
+CVC_EXPECTED_ERROR_THRESHOLD = '0'
+CVC_OVERVOLTAGE_ERROR_THRESHOLD = '0'
+CVC_PARALLEL_CIRCUIT_PORT_LIMIT = '0'
+CVC_CELL_ERROR_LIMIT_FILE = ''
+CVC_CELL_CHECKSUM_FILE = ''
+CVC_LARGE_CIRCUIT_SIZE = '10000000'
+CVC_NET_CHECK_FILE = ''
+CVC_MODEL_CHECK_FILE = ''
+End of parameters
+
+CVC: Reading device model settings...
+CVC: Reading power settings...
+CVC: Parsing netlist /openlane/designs/c03_priority_alarm/runs/c03_check2/tmp/signoff/tt_um_c03_priority_alarm.cdl
+Cdl fixed data size 19436
+Usage CDL: Time: 0  Memory: 6656  I/O: 8  Swap: 0
+CVC: Counting and linking...
+CVC: Assigning IDs ...
+Usage DB: Time: 0  Memory: 6656  I/O: 8  Swap: 0
+CVC: 150(150) instances, 175(175) nets, 372(372) devices.
+CVC: Setting models ...
