@@ -68,7 +68,7 @@ module tb_c03_core;
         if (errors == 0)
             $display("PASS: all 256 input combinations checked.");
         else
-            $display("FAIL: %0d mismatches found.", errors);
+            $fatal(1, "FAIL: %0d mismatches found.", errors);
 
         $finish;
     end
