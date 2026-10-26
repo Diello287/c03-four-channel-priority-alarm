@@ -1,0 +1,29 @@
+name: RTL Exhaustive Verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  exhaustive-rtl-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog
+
+      - name: Compile and test core (256 input combinations)
+        run: |
+          iverilog -g2012 -Wall -s tb_c03_core -o /tmp/tb_c03_core.vvp src/c03_core.v test/tb_c03_core.v
+          vvp /tmp/tb_c03_core.vvp
+
+      - name: Compile and test Tiny Tapeout wrapper (256 input combinations)
+        run: |
+          iverilog -g2012 -Wall -s tb_tt_um_c03_priority_alarm -o /tmp/tb_c03_wrapper.vvp src/c03_core.v src/tt_um_c03_priority_alarm.v test/tb_tt_um_c03_priority_alarm.v
+          vvp /tmp/tb_c03_wrapper.vvp
