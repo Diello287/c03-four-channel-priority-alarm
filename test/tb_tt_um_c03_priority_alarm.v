@@ -90,7 +90,7 @@ module tb_tt_um_c03_priority_alarm;
         if (errors == 0)
             $display("PASS: wrapper checked for all 256 inputs and GPIO outputs.");
         else
-            $display("FAIL: %0d mismatches found.", errors);
+            $fatal(1, "FAIL: %0d mismatches found.", errors);
 
         $finish;
     end
