@@ -1,0 +1,40 @@
+name: RTL Regression
+
+on:
+  push:
+    branches: [main, "ci/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rtl-simulation:
+    name: Icarus Verilog testbenches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes iverilog
+
+      - name: Compile and run core testbench
+        run: |
+          set -euo pipefail
+          iverilog -g2012 -Wall -s tb_c03_core \
+            -o /tmp/tb_c03_core.vvp \
+            src/c03_core.v test/tb_c03_core.v
+          vvp /tmp/tb_c03_core.vvp
+
+      - name: Compile and run top-level testbench
+        run: |
+          set -euo pipefail
+          iverilog -g2012 -Wall -s tb_tt_um_c03_priority_alarm \
+            -o /tmp/tb_c03_wrapper.vvp \
+            src/c03_core.v src/tt_um_c03_priority_alarm.v \
+            test/tb_tt_um_c03_priority_alarm.v
+          vvp /tmp/tb_c03_wrapper.vvp
