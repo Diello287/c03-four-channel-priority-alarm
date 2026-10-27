@@ -1,0 +1,21 @@
+CUSTOM ERC — STRUCTURAL NETLIST CHECK
+Date: 2026-10-27T22:56:32+07:00
+Top module expected: tt_um_c03_priority_alarm
+Input netlist: /home/diello/OpenLane/designs/c03_priority_alarm/runs/c03_erc_retry/tmp/signoff/36-tt_um_c03_priority_alarm.nl.v
+
+[PASS] Expected top module exists
+[PASS] Module/endmodule counts match
+[PASS] Netlist is non-empty
+
+Modules found: 1
+endmodule statements: 1
+Empty named-port connections (review manually): 0
+
+
+STRUCTURAL CHECK RESULT: PASS
+
+Scope limitation:
+- This is a lightweight structural sanity check only.
+- It does not verify electrical connectivity, power integrity,
+  device models, or all ERC rules.
+- It does not replace OpenLane/CVC ERC.
